@@ -11,6 +11,7 @@
 #include <fstream>  //for file input/output
 #include <queue>
 #include "Word.h"
+#include <unordered_map>
 
 using namespace std;
 
@@ -36,10 +37,10 @@ int main()
 	string file_name;
 	string compressed_file_name;
 	string codes_file_name;
-	string big_string;
 	vector<Word> vector_Words;
 	char* test[100];
-	priority_queue<Word, vector<Word>, myComparator> pq_max;
+	priority_queue<Word, vector<Word>, myComparator> max_heap;
+	unordered_map<string, int> um;
 
 	do {
 		cout << "(E)ncode or (D)ecode file: ";
@@ -61,33 +62,43 @@ int main()
 		is.open(file_name);
 		while (is)
 		{
-			//grabs a word from file stream delimited by space automatically
-			is >> big_string;
-			
-			//check max_heap if duplicate string already exists in max_heap
-			//if (!in_max_heap)
-			//create a Word with big_string value and then push the Word onto max_heap
-			pq_max.push(Word(big_string));
+			string string_from_file;
+			//grabs a word from file stream space delimited
+			is >> string_from_file;
+
+			//get frequencies by putting each word into unordered_map
+			um[string_from_file]++;
 		}
-		system("pause");
-		cout << "done!";
+		is.close();
 
-		pq_max = frequencies(big_string);
-				//performs the counting as Words are added
+		//iterate map and put data into max heap
+		for (auto i : um)
+		{
+			//create Word with data from unordered_map
+			Word w = Word(i.first, i.second);
+			max_heap.push(w);
+		}
 
-		//encode(max_heap);
-			//top and pop max_heap
-				//assigning binary strings to each word according to importance (most important is most frequent)
-					//1st = 1 = "0"
-					//2nd = 2 = "1"
-					//3rd = 3 = "10"
-						//these are used to build the final compressed string
-						// e.g. "1 0 1 0 10 0"
+		int counter = 0;
+		//top, assign binary, and pop max_heap until empty
+		while(!max_heap.empty())
+		{
+			//assigning binary strings to each word according to importance (most important is most frequent)
+			//1st = 1 = "0", 2nd = 2 = "1", 3rd = 3 = "10"
+			Word w = max_heap.top();
+			
+			max_heap.pop();
+		}
+
+		//these are used to build the final compressed string
+			// e.g. "1 0 1 0 10 0"
 		//generate file_name.codes.txt
 			//the "binary" mapping
 		//generate file_name.compressed.txt
 			// "1 0 1 0 10 0"
 			// the "binary" representation of the original file
+		cout << "done!" << endl;
+		system("pause");
 	}
 
 	// 2 = user chose Decode(2)

@@ -7,7 +7,7 @@ class Word
 	string key;
 
 public:
-	Word(int f, string k)
+	Word(string k, int f)
 	{
 		freq = f;
 		key = k;
@@ -35,5 +35,11 @@ public:
 	void setKey(string s)
 	{
 		key = s;
+	}
+
+	void toString()
+	{
+		cout << "Key: " << key 
+			<< " Freq: " << freq << endl;
 	}
 };
