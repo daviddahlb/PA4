@@ -89,7 +89,6 @@ int main()
 				Word w = Word(i.first, i.second);
 				max_heap.push(w);
 			}
-
 		}
 
 		//insert .codes and .compressed into file_name strings for output
@@ -245,6 +244,7 @@ string insertCodesInString(string file_name)
 string insertCompressedInString(string file_name)
 {
 	string s = file_name;
+
 	s.insert(s.find(".txt"), ".compressed");
 	return s;
 }
