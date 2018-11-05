@@ -28,5 +28,11 @@
     <Text Include="happy.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="happy.codes.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="happy.compressed.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

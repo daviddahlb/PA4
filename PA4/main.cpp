@@ -1,7 +1,7 @@
 // David dahlberg
 // CS 211 - PA4
 // HSU stu id: 013669107
-// Completion time: 5 hours
+// Completion time: 6 hours
 // Collaborators: none
 
 #include <iostream>
@@ -26,8 +26,8 @@ public:
 int getUserInput();
 string getFileName();
 string binaryStringer(int n);
-string insertCompressedInString(string s);
-string insertCodesInString(string s);
+string insertCompressed(string s);
+string insertCodes(string s);
 
 int main()
 {
@@ -92,10 +92,10 @@ int main()
 		}
 
 		//insert .codes and .compressed into file_name strings for output
-		codes_file_name = insertCodesInString(file_name);
-		compressed_file_name = insertCompressedInString(file_name);
+		codes_file_name = insertCodes(file_name);
+		compressed_file_name = insertCompressed(file_name);
 
-		//set up the two files outputs
+		//set up the two files outputs (file_name.codes.txt & file_name.compressed.txt)
 		ofstream codes_file_output(codes_file_name);
 		ofstream compressed_file_output(compressed_file_name);
 
@@ -120,7 +120,7 @@ int main()
 		}
 
 		//output file_name.compressed.txt
-		//iterate file_string, for each word, gets data from unordered_map and outputs "binary string"
+		//iterate file_string, for each word, gets data from unordered_map and outputs it's "binary string"
 		stringstream fs(file_string);
 		while (fs)
 		{	
@@ -163,6 +163,7 @@ int main()
 		string str;
 		ifstream is_compressed(compressed_file_name);
 		ifstream is_codes(codes_file_name);
+
 		while (is_codes)
 		{
 			string word;
@@ -180,6 +181,7 @@ int main()
 				um_codes[code] = word;
 			}
 		}
+
 		//grabs entire file as a string and puts it into file_string
 		ifstream is(compressed_file_name);
 		stringstream ss;
@@ -233,7 +235,7 @@ int main()
 
 
 //takes in a string and inserts ".codes" when it finds ".txt"
-string insertCodesInString(string file_name)
+string insertCodes(string file_name)
 {
 	string s = file_name;
 	s.insert(s.find(".txt"), ".codes");
@@ -241,7 +243,7 @@ string insertCodesInString(string file_name)
 }
 
 //takes in a string and inserts ".compressed" when it finds ".txt"
-string insertCompressedInString(string file_name)
+string insertCompressed(string file_name)
 {
 	string s = file_name;
 
